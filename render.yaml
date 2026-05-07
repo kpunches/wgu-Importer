@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: wgu-importer
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: CODA_API_TOKEN
+        sync: false          # Set manually in Render dashboard — never commit this
+      - key: ANTHROPIC_API_KEY
+        sync: false          # Reserved for Phase 2 Claude-assisted extraction
+    healthCheckPath: /health
